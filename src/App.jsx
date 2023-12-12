@@ -1,24 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import "./App.css";
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
 
+export const Context = createContext();
+
 function App() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
-
-  // const [todos, setTodos] = useState([
-  //   { title: "Learn about React", isCompleted: false },
-  //   { title: "Meet friend for lunch", isCompleted: false },
-  //   { title: "Build really cool todo app", isCompleted: false }
-  // ]);
 
   useEffect(() => {
     const data = localStorage.getItem("todos") || [];
     setTodos(JSON.parse(data));
   }, []);
 
-  // відслідковуємо todos
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -47,12 +42,12 @@ function App() {
     <>
       <h1>Vite + React Todo App</h1>
       <div className="App">
-        <AddTodo todo={todo} setTodo={setTodo} addTodo={addTodo}></AddTodo>
-        <TodoList
-          todos={todos}
-          deleteTodo={deleteTodo}
-          completeTodo={completeTodo}
-        ></TodoList>
+        <Context.Provider
+          value={{ todos, todo, setTodo, addTodo, deleteTodo, completeTodo }}
+        >
+          <AddTodo></AddTodo>
+          <TodoList></TodoList>
+        </Context.Provider>
       </div>
     </>
   );

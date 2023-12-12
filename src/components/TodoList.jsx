@@ -1,17 +1,17 @@
 import PropTypes from "prop-types";
 import Todo from "./Todo";
-const TodoList = ({ todos, deleteTodo, completeTodo }) => {
+import { useContext } from "react";
+import { Context } from "../App";
+
+const TodoList = () => {
+  const { todos } = useContext(Context);
+
   return (
     <>
       {todos?.length > 0 ? (
         <ul>
           {todos.map((todo, index) => (
-            <Todo
-              todo={todo}
-              index={index}
-              deleteTodo={deleteTodo}
-              completeTodo={completeTodo}
-            ></Todo>
+            <Todo key={index} todo={todo} index={index}></Todo>
           ))}
         </ul>
       ) : (
