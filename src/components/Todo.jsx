@@ -3,7 +3,20 @@ import { useContext } from "react";
 import { Context } from "../App";
 
 const Todo = ({ todo, index }) => {
-  const { deleteTodo, completeTodo } = useContext(Context);
+  const { todos, setTodos } = useContext(Context);
+
+  const deleteTodo = (todoItem) => {
+    const filteredTodos = todos.filter((todo) => {
+      return todo !== todoItem;
+    });
+    setTodos(filteredTodos);
+  };
+
+  const completeTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos[index].isCompleted = true;
+    setTodos(newTodos);
+  };
 
   return (
     <div style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}>

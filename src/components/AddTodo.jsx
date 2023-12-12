@@ -1,9 +1,8 @@
 import { useContext, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 import { Context } from "../App";
 
 export default function AddTodo() {
-  const { todo, setTodo, addTodo } = useContext(Context);
+  const { todos, todo, setTodo, setTodos } = useContext(Context);
 
   const inputRef = useRef(null);
 
@@ -13,6 +12,13 @@ export default function AddTodo() {
       inputRef.current.focus();
     }
   });
+
+  const addTodo = () => {
+    if (todo !== "") {
+      setTodos([...todos, { title: todo, isCompleted: false }]);
+      setTodo("");
+    }
+  };
 
   return (
     <div>
@@ -28,9 +34,3 @@ export default function AddTodo() {
     </div>
   );
 }
-
-AddTodo.propTypes = {
-  todo: PropTypes.string,
-  setTodo: PropTypes.func,
-  addTodo: PropTypes.func,
-};

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Todo from "./Todo";
 import { useContext } from "react";
 import { Context } from "../App";
@@ -21,13 +20,6 @@ const TodoList = () => {
       )}
     </>
   );
-};
-
-TodoList.propTypes = {
-  todos: PropTypes.isRequired,
-  deleteTodo: PropTypes.func,
-  editTodo: PropTypes.func,
-  completeTodo: PropTypes.func,
 };
 
 export default TodoList;
